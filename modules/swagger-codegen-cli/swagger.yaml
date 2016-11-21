@@ -1,0 +1,85 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  title: Swagger Sample App
+  description: This is a sample server Petstore server.
+  termsOfService: http://swagger.io/terms/
+  contact:
+   name: API Support
+   url: http://www.swagger.io/support
+   email: support@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.1
+
+securityDefinitions:
+  marca:
+    type: apiKey
+    name: marca
+    in: header
+    
+  pais:
+    type: apiKey
+    name: pais
+    in: header
+    
+  DNI:
+    type: basic
+    
+  OauthSecurity:
+    type: oauth2
+    flow: accessCode
+    authorizationUrl: 'https://oauth.simple.api/authorization'
+    tokenUrl: 'https://oauth.simple.api/token'
+    
+
+
+security: [ { marca: [], pais: [], DNI: [], OauthSecurity: []  } ]
+# Describe your paths here
+paths:
+  # This is a path endpoint. Change it.
+  /persons:
+    # This is a HTTP operation
+    get:
+      # Describe this verb here. Note: you can use markdown
+      description: |
+        Gets `Person` objects.
+        Optional query param of **size** determines
+        size of returned array
+      # This is array of GET operation parameters:
+      parameters:
+        # An example parameter that is in query and is required
+       
+        -
+          name: CUERPO
+          in: query
+          description: Size of array
+          required: true
+          type: number
+          format: double
+          
+      
+          
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        200:
+          description: Successful response
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            title: ArrayOfPersons
+            type: array
+            items:
+              title: Person
+              type: object
+              properties:
+                name:
+                  type: string
+                single:
+                  type: boolean

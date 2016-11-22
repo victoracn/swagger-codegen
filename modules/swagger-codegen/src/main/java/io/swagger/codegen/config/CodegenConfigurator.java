@@ -46,6 +46,7 @@ public class CodegenConfigurator {
     private String templateDir;
     private String auth;
     private String apiPackage;
+    private String bPackage;
     private String modelPackage;
     private String invokerPackage;
     private String modelNamePrefix;
@@ -174,6 +175,15 @@ public class CodegenConfigurator {
 
     public CodegenConfigurator setApiPackage(String apiPackage) {
         this.apiPackage = apiPackage;
+        return this;
+    }
+    
+    public String getBPackage() {
+        return bPackage;
+    }
+
+    public CodegenConfigurator setBPackage(String bPackage) {
+        this.bPackage = bPackage;
         return this;
     }
 
@@ -362,6 +372,7 @@ public class CodegenConfigurator {
         config.languageSpecificPrimitives().addAll(languageSpecificPrimitives);
 
         checkAndSetAdditionalProperty(apiPackage, CodegenConstants.API_PACKAGE);
+        checkAndSetAdditionalProperty(bPackage, CodegenConstants.B_PACKAGE);
         checkAndSetAdditionalProperty(modelPackage, CodegenConstants.MODEL_PACKAGE);
         checkAndSetAdditionalProperty(invokerPackage, CodegenConstants.INVOKER_PACKAGE);
         checkAndSetAdditionalProperty(groupId, CodegenConstants.GROUP_ID);

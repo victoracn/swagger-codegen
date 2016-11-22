@@ -4,8 +4,11 @@ package io.swagger.codegen;
  * A class for storing constants that are used throughout the project.
  */
 public class CodegenConstants {
-    public static final String API_PACKAGE = "apiPackage";
+	public static final String API_PACKAGE = "apiPackage";
     public static final String API_PACKAGE_DESC = "package for generated api classes";
+    
+    public static final String B_PACKAGE = "bPackage";
+    public static final String B_PACKAGE_DESC = "package for all the classes";
 
     public static final String MODEL_PACKAGE = "modelPackage";
     public static final String MODEL_PACKAGE_DESC = "package for generated models";

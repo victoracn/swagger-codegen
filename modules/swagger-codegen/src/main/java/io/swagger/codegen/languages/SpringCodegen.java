@@ -12,7 +12,7 @@ public class SpringCodegen extends AbstractJavaCodegen {
     public static final String DEFAULT_LIBRARY = "spring-boot";
     public static final String TITLE = "title";
     public static final String CONFIG_PACKAGE = "configPackage";
-    public static final String BASE_PACKAGE = "basePackage";
+    public static final String B_PACKAGE = "bPackage";
     public static final String INTERFACE_ONLY = "interfaceOnly";
     public static final String SINGLE_CONTENT_TYPES = "singleContentTypes";
     public static final String JAVA_8 = "java8";
@@ -22,8 +22,10 @@ public class SpringCodegen extends AbstractJavaCodegen {
     public static final String SPRING_CLOUD_LIBRARY = "spring-cloud";
 
     protected String title = "swagger-petstore";
-    protected String configPackage = "io.swagger.configuration";
-    protected String basePackage = "io.swagger";
+    protected String bPackage = "com.hive";
+    //protected String bPackage = "io.swagger";
+    //protected String configPackage = "io.swagge.configuration";
+    protected String configPackage = bPackage+".configuration";
     protected boolean interfaceOnly = false;
     protected boolean singleContentTypes = false;
     protected boolean java8 = false;
@@ -32,23 +34,32 @@ public class SpringCodegen extends AbstractJavaCodegen {
 
     public SpringCodegen() {
         super();
+        
+       /*Eliminar cuando funcione
+        *  if(additionalProperties.get(B_PACKAGE)!= null){
+        	bPackage=(String) additionalProperties.get(B_PACKAGE);
+        }
+        additionalProperties.put(B_PACKAGE, bPackage);*/
+        
         outputFolder = "generated-code/javaSpring";
         apiTestTemplateFiles.clear(); // TODO: add test template
         embeddedTemplateDir = templateDir = "JavaSpring";
-        apiPackage = "io.swagger.api";
-        modelPackage = "io.swagger.model";
+        apiPackage = bPackage+".api";
+        modelPackage = bPackage+".model";
+        configPackage = bPackage+".configuration";
         invokerPackage = "io.swagger.api";
         artifactId = "swagger-spring";
-
+    
         additionalProperties.put(CONFIG_PACKAGE, configPackage);
-        additionalProperties.put(BASE_PACKAGE, basePackage);
+        additionalProperties.put(B_PACKAGE, bPackage);
 
+        
         // spring uses the jackson lib
         additionalProperties.put("jackson", "true");
 
         cliOptions.add(new CliOption(TITLE, "server title name or client service name"));
         cliOptions.add(new CliOption(CONFIG_PACKAGE, "configuration package for generated code"));
-        cliOptions.add(new CliOption(BASE_PACKAGE, "base package for generated code"));
+        cliOptions.add(new CliOption(B_PACKAGE, "base package for generated code"));
         cliOptions.add(CliOption.newBoolean(INTERFACE_ONLY, "Whether to generate only API interface stubs without the server files."));
         cliOptions.add(CliOption.newBoolean(SINGLE_CONTENT_TYPES, "Whether to select only one produces/consumes content-type by operation."));
         cliOptions.add(CliOption.newBoolean(JAVA_8, "use java8 default interface"));
@@ -100,8 +111,8 @@ public class SpringCodegen extends AbstractJavaCodegen {
             this.setConfigPackage((String) additionalProperties.get(CONFIG_PACKAGE));
         }
 
-        if (additionalProperties.containsKey(BASE_PACKAGE)) {
-            this.setBasePackage((String) additionalProperties.get(BASE_PACKAGE));
+        if (additionalProperties.containsKey(B_PACKAGE)) {
+            this.setBPackage((String) additionalProperties.get(B_PACKAGE));
         }
 
         if (additionalProperties.containsKey(INTERFACE_ONLY)) {
@@ -132,9 +143,9 @@ public class SpringCodegen extends AbstractJavaCodegen {
                 supportingFiles.add(new SupportingFile("homeController.mustache",
                         (sourceFolder + File.separator + configPackage).replace(".", java.io.File.separator), "HomeController.java"));
                 supportingFiles.add(new SupportingFile("swagger2SpringBoot.mustache",
-                        (sourceFolder + File.separator + basePackage).replace(".", java.io.File.separator), "Swagger2SpringBoot.java"));
+                        (sourceFolder + File.separator + bPackage).replace(".", java.io.File.separator), "Swagger2SpringBoot.java"));
                 supportingFiles.add(new SupportingFile("RFC3339DateFormat.mustache",
-                        (sourceFolder + File.separator + basePackage).replace(".", java.io.File.separator), "RFC3339DateFormat.java"));
+                        (sourceFolder + File.separator + bPackage).replace(".", java.io.File.separator), "RFC3339DateFormat.java"));
                 supportingFiles.add(new SupportingFile("application.mustache",
                         ("src.main.resources").replace(".", java.io.File.separator), "application.properties"));
             }
@@ -380,8 +391,8 @@ public class SpringCodegen extends AbstractJavaCodegen {
         this.configPackage = configPackage;
     }
 
-    public void setBasePackage(String configPackage) {
-        this.basePackage = configPackage;
+    public void setBPackage(String configPackage) {
+        this.bPackage = configPackage;
     }
 
     public void setInterfaceOnly(boolean interfaceOnly) { this.interfaceOnly = interfaceOnly; }

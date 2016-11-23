@@ -6,6 +6,10 @@ import io.swagger.models.Path;
 import io.swagger.models.Swagger;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 public class SpringCodegen extends AbstractJavaCodegen {
@@ -20,11 +24,10 @@ public class SpringCodegen extends AbstractJavaCodegen {
     public static final String RESPONSE_WRAPPER = "responseWrapper";
     public static final String SPRING_MVC_LIBRARY = "spring-mvc";
     public static final String SPRING_CLOUD_LIBRARY = "spring-cloud";
-
+    public static final String PROPERTIES = "C:/Users/victor.ortega.gordo/git/swagger-codegen/modules/swagger-codegen/src/main/resources/JavaSpring/config.properties";
+    
     protected String title = "swagger-petstore";
     protected String bPackage = "com.hive";
-    //protected String bPackage = "io.swagger";
-    //protected String configPackage = "io.swagge.configuration";
     protected String configPackage = bPackage+".configuration";
     protected boolean interfaceOnly = false;
     protected boolean singleContentTypes = false;
@@ -34,12 +37,9 @@ public class SpringCodegen extends AbstractJavaCodegen {
 
     public SpringCodegen() {
         super();
+       
+        bPackage  = LoadProperties(PROPERTIES).getProperty(B_PACKAGE);
         
-       /*Eliminar cuando funcione
-        *  if(additionalProperties.get(B_PACKAGE)!= null){
-        	bPackage=(String) additionalProperties.get(B_PACKAGE);
-        }
-        additionalProperties.put(B_PACKAGE, bPackage);*/
         
         outputFolder = "generated-code/javaSpring";
         apiTestTemplateFiles.clear(); // TODO: add test template
@@ -450,6 +450,20 @@ public class SpringCodegen extends AbstractJavaCodegen {
         }
 
         return objs;
+    }
+    
+    public Properties LoadProperties(String fichero){
+  	  Properties prop = new Properties();
+  	  InputStream input = null;
+  	  try {
+		input = new FileInputStream(fichero);
+		prop.load(input);
+	} catch (FileNotFoundException e) {
+		e.printStackTrace();
+	}catch (IOException e) {
+		e.printStackTrace();
+	}
+  	  return prop;
     }
 
 }

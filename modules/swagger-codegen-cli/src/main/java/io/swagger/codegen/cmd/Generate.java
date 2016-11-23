@@ -63,9 +63,6 @@ public class Generate implements Runnable {
     @Option(name = {"--api-package"}, title = "api package", description = CodegenConstants.API_PACKAGE_DESC)
     private String apiPackage;
 
-    @Option(name = {"--b-package"}, title = "b package", description = CodegenConstants.API_PACKAGE_DESC)
-    private String bPackage;
-    
     @Option(name = {"--model-package"}, title = "model package", description = CodegenConstants.MODEL_PACKAGE_DESC)
     private String modelPackage;
 
@@ -164,10 +161,6 @@ public class Generate implements Runnable {
 
         if(isNotEmpty(apiPackage)) {
             configurator.setApiPackage(apiPackage);
-        }
-
-        if(isNotEmpty(bPackage)) {
-            configurator.setBPackage(bPackage);
         }
         
         if(isNotEmpty(modelPackage)) {

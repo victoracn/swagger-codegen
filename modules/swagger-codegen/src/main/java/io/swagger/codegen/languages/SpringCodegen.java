@@ -40,7 +40,6 @@ public class SpringCodegen extends AbstractJavaCodegen {
        
         bPackage  = LoadProperties(PROPERTIES).getProperty(B_PACKAGE);
         
-        
         outputFolder = "generated-code/javaSpring";
         apiTestTemplateFiles.clear(); // TODO: add test template
         embeddedTemplateDir = templateDir = "JavaSpring";

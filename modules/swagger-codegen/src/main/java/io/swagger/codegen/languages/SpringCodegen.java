@@ -24,7 +24,7 @@ public class SpringCodegen extends AbstractJavaCodegen {
     public static final String RESPONSE_WRAPPER = "responseWrapper";
     public static final String SPRING_MVC_LIBRARY = "spring-mvc";
     public static final String SPRING_CLOUD_LIBRARY = "spring-cloud";
-    public static final String PROPERTIES = "C:/Users/victor.ortega.gordo/git/swagger-codegen/modules/swagger-codegen/src/main/resources/JavaSpring/config.properties";
+    public static final String PROPERTIES = "../swagger-codegen/src/main/resources/JavaSpring/config.properties";
     
     protected String title = "swagger-petstore";
     protected String bPackage = "com.hive";
